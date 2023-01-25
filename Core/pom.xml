@@ -7,7 +7,7 @@
     <parent>
         <groupId>com.songoda</groupId>
         <artifactId>SongodaCore-Modules</artifactId>
-        <version>2.6.10</version>
+        <version>2.6.16</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -50,7 +50,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>3.1.0</version>
+                <version>3.3.0</version>
 
                 <executions>
                     <execution>
@@ -65,24 +65,32 @@
                             <shadedArtifactAttached>false</shadedArtifactAttached>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
 
+                            <relocations>
+                                <relocation>
+                                    <pattern>com.zaxxer</pattern>
+                                    <shadedPattern>com.songoda.core.third_party.com.zaxxer</shadedPattern>
+                                </relocation>
+
+                                <relocation>
+                                    <pattern>de.tr7zw.changeme.nbtapi</pattern>
+                                    <shadedPattern>com.songoda.core.third_party.de.tr7zw.nbtapi</shadedPattern>
+                                </relocation>
+
+                                <relocation>
+                                    <pattern>org.apache.commons</pattern>
+                                    <shadedPattern>com.songoda.core.third_party.org.apache.commons</shadedPattern>
+                                </relocation>
+                            </relocations>
+
                             <artifactSet>
                                 <includes>
                                     <include>com.songoda:*</include>
                                     <include>com.zaxxer:HikariCP</include>
+                                    <include>org.apache.commons:commons-text</include>
+                                    <include>org.apache.commons:commons-lang3</include>
+                                    <include>de.tr7zw:item-nbt-api</include>
                                 </includes>
                             </artifactSet>
-
-                            <filters>
-                                <filter>
-                                    <artifact>*:*</artifact>
-
-                                    <includes>
-                                        <include>com/</include>
-                                        <include>META-INF/MANIFEST.MF</include>
-                                        <include>META-INF/maven/com.songoda/SongodaCore/</include>
-                                    </includes>
-                                </filter>
-                            </filters>
                         </configuration>
                     </execution>
                 </executions>
@@ -102,6 +110,13 @@
             <groupId>${project.groupId}</groupId>
             <artifactId>SongodaCore-Compatibility</artifactId>
             <version>${project.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>de.tr7zw</groupId>
+            <artifactId>item-nbt-api</artifactId>
+            <version>2.10.0</version>
             <scope>compile</scope>
         </dependency>
 
@@ -216,6 +231,24 @@
             <version>${project.version}</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>SongodaCore-NMS-v1_18_R2</artifactId>
+            <version>${project.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>SongodaCore-NMS-v1_19_R1</artifactId>
+            <version>${project.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>SongodaCore-NMS-v1_19_R1v2</artifactId>
+            <version>${project.version}</version>
+            <scope>compile</scope>
+        </dependency>
         <!-- End NMS -->
 
         <!-- Start Plugin Hooks -->
@@ -285,7 +318,7 @@
         <dependency>
             <groupId>com.bgsoftware</groupId>
             <artifactId>wildstacker</artifactId>
-            <version>3.5.1</version>
+            <version>3.8.0</version>
             <scope>provided</scope>
         </dependency>
 
